@@ -1,0 +1,207 @@
+<!-- FOR THE REPOSITORY VIEWER -->
+
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>GitHub Repository Viewer</title>
+    <style>
+        #app {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>GitHub Repository Viewer</h1>
+        <label for="usernameOrOrg">Enter a GitHub username or organization:</label>
+        <input type="text" id="usernameOrOrg" placeholder="e.g., octocat">
+        <button id="fetchRepos">Fetch Repositories</button>
+        <ul id="repositoryList"></ul>
+    </div>
+
+    <script>
+        const fetchReposButton = document.getElementById('fetchRepos');
+        const usernameOrOrgInput = document.getElementById('usernameOrOrg');
+        const repositoryList = document.getElementById('repositoryList');
+
+        fetchReposButton.addEventListener('click', () => {
+            const usernameOrOrg = usernameOrOrgInput.value;
+            const apiUrl = `https://api.github.com/users/${usernameOrOrg}/repos`;
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(repositories => {
+                    repositoryList.innerHTML = '';
+                    repositories.forEach(repo => {
+                        const li = document.createElement('li');
+                        li.textContent = repo.name;
+                        repositoryList.appendChild(li);
+                    });
+                })
+                .catch(error => {
+                    console.error(`Failed to fetch repositories: ${error}`);
+                });
+        });
+    </script>
+</body>
+</html> -->
+
+
+<!-- FOR PULL REQUEST VIEWER AND GITHUB ISSUE -->
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>GitHub Issue/Pull Request Viewer</title>
+    <style>
+        #app {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>GitHub Issue/Pull Request Viewer</h1>
+        <label for="repository">Enter a GitHub repository (e.g., owner/repo):</label>
+        <input type="text" id="repository" placeholder="e.g., octocat/hello-world">
+        <label for="issueOrPrNumber">Enter the issue or pull request number:</label>
+        <input type="number" id="issueOrPrNumber" placeholder="e.g., 1">
+        <button id="fetchIssueOrPr">Fetch Issue/Pull Request</button>
+        <div id="issueOrPrInfo"></div>
+    </div>
+
+    <script>
+        const fetchIssueOrPrButton = document.getElementById('fetchIssueOrPr');
+        const repositoryInput = document.getElementById('repository');
+        const issueOrPrNumberInput = document.getElementById('issueOrPrNumber');
+        const issueOrPrInfo = document.getElementById('issueOrPrInfo');
+
+        fetchIssueOrPrButton.addEventListener('click', () => {
+            const repository = repositoryInput.value;
+            const issueOrPrNumber = issueOrPrNumberInput.value;
+            const apiUrl = `https://api.github.com/repos/${repository}/issues/${issueOrPrNumber}`;
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(issueOrPr => {
+                    issueOrPrInfo.innerHTML = `<h2>Title: ${issueOrPr.title}</h2><p>State: ${issueOrPr.state}</p>`;
+                })
+                .catch(error => {
+                    issueOrPrInfo.innerHTML = `Failed to fetch issue/pull request: ${error}`;
+                });
+        });
+    </script>
+</body>
+</html> -->
+
+
+<!-- FOR GETTING A LIST OF CONTRIBUTORS TO A REPOSITORY -->
+<!-- <!DOCTYPE html>
+<html>
+<head>
+    <title>GitHub Contributor List</title>
+    <style>
+        #app {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>GitHub Contributor List</h1>
+        <label for="repository">Enter a GitHub repository (e.g., owner/repo):</label>
+        <input type="text" id="repository" placeholder="e.g., octocat/hello-world">
+        <button id="fetchContributors">Fetch Contributors</button>
+        <ul id="contributorList"></ul>
+        <div id="errorText" style="color: red;"></div>
+    </div>
+
+    <script>
+        const fetchContributorsButton = document.getElementById('fetchContributors');
+        const repositoryInput = document.getElementById('repository');
+        const contributorList = document.getElementById('contributorList');
+        const errorText = document.getElementById('errorText');
+
+        fetchContributorsButton.addEventListener('click', () => {
+            const repository = repositoryInput.value;
+            const apiUrl = `https://api.github.com/repos/${repository}/contributors`;
+
+            fetch(apiUrl)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`GitHub API request failed with status: ${response.status}`);
+                    }
+                    return response.json();
+                })
+                .then(contributors => {
+                    contributorList.innerHTML = '';
+                    contributors.forEach(contributor => {
+                        const li = document.createElement('li');
+                        li.textContent = contributor.login;
+                        contributorList.appendChild(li);
+                    });
+                    errorText.textContent = ''; // Clear any previous error messages.
+                })
+                .catch(error => {
+                    errorText.textContent = `Failed to fetch contributors: ${error.message}`;
+                });
+        });
+    </script>
+</body>
+</html> -->
+
+
+<!-- FOR FETCHING NUMBER OF FOLLOWERS -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GitHub User Information</title>
+    <style>
+        #app {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>GitHub User Information</h1>
+        <label for="username">Enter a GitHub username:</label>
+        <input type="text" id="username" placeholder="e.g., octocat">
+        <button id="fetchUserInfo">Fetch User Information</button>
+        <div id="userInfo"></div>
+    </div>
+
+    <script>
+        const fetchUserInfoButton = document.getElementById('fetchUserInfo');
+        const usernameInput = document.getElementById('username');
+        const userInfo = document.getElementById('userInfo');
+
+        fetchUserInfoButton.addEventListener('click', () => {
+            const username = usernameInput.value;
+            const apiUrl = `https://api.github.com/users/${username}`;
+
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(user => {
+                    userInfo.innerHTML = `
+                        <h2>Username: ${user.login}</h2>
+                        <p>Followers: ${user.followers}</p>
+                        <p>Following: ${user.following}</p>
+                    `;
+                })
+                .catch(error => {
+                    userInfo.innerHTML = `Failed to fetch user information: ${error}`;
+                });
+        });
+    </script>
+</body>
+</html>
+
+
